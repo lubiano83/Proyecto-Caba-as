@@ -13,7 +13,7 @@ export default function Inicio({ children, email, address, derechos }) {
     return (
         <div className="min-h-screen grid grid-rows-[auto_1fr_auto] font-serif">
             <Navbar toggleDarkMode={toggleDarkMode} handleShow={handleShow} />
-            <div className="w-full flex flex-col xl:flex-row justify-start items-start">
+            <div className="w-full h-full flex justify-start items-start">
                 { show ? <Menu /> : "" }
                 { children }
             </div>

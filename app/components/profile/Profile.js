@@ -7,11 +7,9 @@ export default function Profile() {
 
     const { handleLogout, logged } = useAuth();
 
-    if(!logged) return <LoginPage />
-
     return (
-        <div className="bg-light">
-            <Boton fnc={() => handleLogout()} >Salir</Boton>
+        <div className="h-full w-full flex justify-center items-center">
+            { !logged ? <LoginPage /> : <Boton fnc={() => handleLogout()} >Salir</Boton> }
         </div>
     )
 };

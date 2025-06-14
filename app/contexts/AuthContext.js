@@ -12,16 +12,19 @@ export const AuthProvider = ({ children }) => {
     const [ first_name, setFirst_name ] = useState("");
     const [ last_name, setLast_name ] = useState("");
     const [ phone, setPhone ] = useState("");
-    const [ address, setAddress ] = useState("");
+    const [ country, setCountry ] = useState("");
+    const [ state, setState ] = useState("");
+    const [ city, setCity ] = useState("");
+    const [ street, setStreet ] = useState("");
     const router = useRouter();
 
     const handleRegister = async(e) => {
         e.preventDefault();
         try {
             await registerUser();
-            setNombre("");
+            setFirst_name("");
+            setLast_name("");
             setEmail("");
-            setPassword("");
             alert("Register realizado con exito..");
             router.push("/pages/auth/login");
         } catch (error) {
@@ -58,7 +61,7 @@ export const AuthProvider = ({ children }) => {
             headers: {
             "Content-Type": "application/json",
             },
-            body: JSON.stringify({ first_name, last_name, email, phone, address }),
+            body: JSON.stringify({ first_name, last_name, email, phone, country, state, city, street }),
         });
         const data = await response.json();
         if(!response.ok) throw new Error(data.message);
@@ -100,7 +103,7 @@ export const AuthProvider = ({ children }) => {
     };
 
     return (
-        <AuthContext.Provider value={{ logged, setLogged, handleRegister, handleLogin, handleLogout, email, setEmail, password, setPassword, first_name, setFirst_name, last_name, setLast_name, phone, setPhone, address, setAddress }}>
+        <AuthContext.Provider value={{ logged, setLogged, handleRegister, handleLogin, handleLogout, email, setEmail, password, setPassword, first_name, setFirst_name, last_name, setLast_name, phone, setPhone, country, setCountry, state, setState, city, setCity, street, setStreet }}>
             {children}
         </AuthContext.Provider>
     )

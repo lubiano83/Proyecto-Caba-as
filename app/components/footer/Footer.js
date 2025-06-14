@@ -5,7 +5,7 @@ import Derechos from "./Derechos";
 
 export default function Footer({ email, address, derechos }) {
     return (
-        <div className="bg-dark p-4 w-full flex justify-evenly items-center gap-4 flex-wrap-reverse">
+        <div className="bg-dark p-4 w-full flex justify-evenly items-center gap-4 flex-wrap-reverse z-3">
             <div className="flex flex-col justify-center items-center gap-4 flex-wrap text-center">
                 <Address address={address} />
                 <Derechos derechos={derechos} />
