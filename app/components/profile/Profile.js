@@ -1,15 +1,15 @@
 "use client";
 import useAuth from "@/app/hooks/useAuth";
 import LoginPage from "@/app/pages/auth/login/page";
-import Boton from "../Boton";
+import ProfileData from "./ProfileData";
 
 export default function Profile() {
 
-    const { handleLogout, logged } = useAuth();
+    const { user, logged, logoutUser, getUserById } = useAuth();
 
     return (
-        <div className="h-full w-full flex justify-center items-center">
-            { !logged ? <LoginPage /> : <Boton fnc={() => handleLogout()} >Salir</Boton> }
+        <div className="h-full w-full flex justify-center items-center p-8">
+            { !logged ? <LoginPage /> : <ProfileData user={user} logoutUser={logoutUser} getUserById={getUserById} /> }
         </div>
     )
 };

@@ -1,11 +1,12 @@
 "use client";
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
 
+    const [ user, setUser ] = useState(null);
     const [ logged, setLogged ] = useState(false);
     const [ email, setEmail ] = useState("");
     const [ password, setPassword ] = useState("");
@@ -16,75 +17,65 @@ export const AuthProvider = ({ children }) => {
     const [ state, setState ] = useState("");
     const [ city, setCity ] = useState("");
     const [ street, setStreet ] = useState("");
+    const [ number, setNumber ] = useState("");
     const router = useRouter();
 
-    const handleRegister = async(e) => {
-        e.preventDefault();
-        try {
-            await registerUser();
-            setFirst_name("");
-            setLast_name("");
-            setEmail("");
-            alert("Register realizado con exito..");
-            router.push("/pages/auth/login");
-        } catch (error) {
-            alert(error.message);
-        }
-    };
+    useEffect(() => {
+        checkSession();
+    }, []);
 
-    const handleLogin = async(e) => {
-        e.preventDefault();
-        try {
-            await loginUser(email, password);
-            alert("Login realizado con exito..");
-            router.push("/");
-        } catch (error) {
-            alert(error.message);
-        }
-    };
-
-    const handleLogout = async(e) => {
-        try {
-            await logoutUser();
-            alert("logout realizado con exito..");
-            router.push("/");
-        } catch (error) {
-            alert(error.message);
-        }
-    };
 
     const registerUser = async() => {
         try {
-        const response = await fetch("/api/auth/register", {
-            method: "POST",
-            credentials: "include",
-            headers: {
-            "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ first_name, last_name, email, phone, country, state, city, street }),
-        });
-        const data = await response.json();
-        if(!response.ok) throw new Error(data.message);
-        setUser(data);
+            const response = await fetch("/api/auth/register", {
+                method: "POST",
+                credentials: "include",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ first_name, last_name, phone, email, password, address: { country, state, city, street, number }})});
+            if(response.ok) {
+                setEmail("");
+                setFirst_name("");
+                setLast_name("");
+                setPhone("");
+                setCountry("");
+                setState("");
+                setCity("");
+                setStreet("");
+                setNumber("");
+                router.push("/pages/auth/login");
+                return true;
+            } else {
+                const error = await response.json();
+                alert(error.message);
+                return false
+            }
         } catch (error) {
-        throw new Error(error.message);
+            console.error("Hubo un problema al conectarse al backend..", error.message);
         }
     };
 
-    const loginUser = async (email, password) => {
+    const loginUser = async() => {
         try {
             const response = await fetch("/api/auth/login", {
                 method: "POST",
                 credentials: "include",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ email, password }),
-            });
-            const data = await response.json();
-            if (!response.ok) throw new Error(data.message);
-            setLogged(true);
-            setEmail(email);
+                body: JSON.stringify({ email, password })});
+            if (response.ok) {
+                await checkSession();
+                setLogged(true);
+                setEmail("");
+                setPassword("");
+                router.push("/");
+                return true;
+            } else {
+                setLogged(false);
+                const error = await response.json();
+                alert(error.message);
+                return false;
+            }
         } catch (error) {
-            throw new Error(error.message);
+            console.error("Hubo un problema al conectarse al backend..", error.message);
         }
     };
 
@@ -94,16 +85,40 @@ export const AuthProvider = ({ children }) => {
                 method: "DELETE",
                 credentials: "include",
             });
-            const data = await response.json();
-            if(!response.ok) throw new Error(data.message);
-            setLogged(false);
+            if (response.ok) {
+                alert("Logout realizado con éxito");
+                setLogged(false);
+                setUser(null);
+                router.push("/");
+                return true;
+            } else {
+                const error = await response.json();
+                alert(error.message);
+                return false;
+            }
         } catch (error) {
-            throw new Error(error.message);
+            console.error("Hubo un problema al conectarse al backend..", error.message);
         }
     };
 
+    const checkSession = async () => {
+        try {
+            const response = await fetch("/api/auth/session", {
+                method: "GET",
+                credentials: "include",
+            });
+            if (response.ok) {
+                const data = await response.json();
+                setUser(data.payload);
+                setLogged(true);
+            }
+        } catch (error) {
+            console.error("Error al validar sesión:", error.message);
+        }
+    };
+    
     return (
-        <AuthContext.Provider value={{ logged, setLogged, handleRegister, handleLogin, handleLogout, email, setEmail, password, setPassword, first_name, setFirst_name, last_name, setLast_name, phone, setPhone, country, setCountry, state, setState, city, setCity, street, setStreet }}>
+        <AuthContext.Provider value={{user, logged, registerUser, loginUser, logoutUser, email, setEmail, password, setPassword, first_name, setFirst_name, last_name, setLast_name, phone, setPhone, country, setCountry, state, setState, city, setCity, street, setStreet, number, setNumber }}>
             {children}
         </AuthContext.Provider>
     )

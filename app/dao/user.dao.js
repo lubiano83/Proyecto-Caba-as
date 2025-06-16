@@ -1,5 +1,5 @@
-import UserModel from "../models/user.model.js";
-import connectDB from "../config/mongoose.config.js";
+import UserModel from "@/app/models/user.model.js";
+import connectDB from "@/app/config/mongoose.config.js";
 
 export default class UsersDao {
 

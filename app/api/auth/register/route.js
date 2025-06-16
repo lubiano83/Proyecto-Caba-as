@@ -24,7 +24,7 @@ export async function POST(request) {
         const sendPassword = await sendPasswordEmail(newUser, password);
         if(!sendPassword.success) return NextResponse.json({ message: "No se pudo enviar el email con la contraseña.." }, { status: 400 });
         await userDao.create(newUser);
-        return NextResponse.json({ message: "Usuario registrado con exito.." }, { status: 201 });
+        return NextResponse.json({ message: "Usuario registrado con exito..", payload: newUser }, { status: 201 });
     } catch (error) {
         return NextResponse.json({ message: "Error interno del servidor..", error: error.message },{ status: 500 });
     }

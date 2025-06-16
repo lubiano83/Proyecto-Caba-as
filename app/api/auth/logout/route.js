@@ -1,8 +1,5 @@
 import { NextResponse } from "next/server";
-import UserDao from "@/app/dao/user.dao";
 import { cookies } from "next/headers";
-
-const userDao = new UserDao();
 
 export async function DELETE() {
     try {
