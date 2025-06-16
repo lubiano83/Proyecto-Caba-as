@@ -11,6 +11,8 @@ export const AuthProvider = ({ children }) => {
     const [ image, setImage ] = useState("");
     const [ email, setEmail ] = useState("");
     const [ password, setPassword ] = useState("");
+    const [ newPassword, setNewPassword ] = useState("");
+    const [ newPasswordTwo, setNewPasswordTwo ] = useState("");
     const [ first_name, setFirst_name ] = useState("");
     const [ last_name, setLast_name ] = useState("");
     const [ phone, setPhone ] = useState("");
@@ -147,6 +149,7 @@ export const AuthProvider = ({ children }) => {
             });
             if (response.ok) {
                 const data = await response.json();
+                await checkSession();
                 alert("Imagen actualizada con éxito");
                 setImage(null);
                 setUser((prev) => ({ ...prev, image: data.imageUrl }));
@@ -162,6 +165,53 @@ export const AuthProvider = ({ children }) => {
         }
     };
 
+    const ChangePasswordById = async(id) => {
+        try {
+            const response = await fetch(`/api/users/update/password/${id}`, {
+                method: "PATCH",
+                credentials: "include",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ password, newPassword, newPasswordTwo })});
+            if (response.ok) {
+                await checkSession();
+                alert("Contraseña actualizada con éxito");
+                setPassword("");
+                setNewPassword("");
+                setNewPasswordTwo("");
+                router.push("/pages/profile");
+                return true;
+            } else {
+                const error = await response.json();
+                alert(error.message);
+                return false;
+            }
+        } catch (error) {
+            console.error("Hubo un problema al conectarse al backend..", error.message);
+        }
+    };
+
+    const RecoverPassword = async() => {
+        try {
+            const response = await fetch(`/api/users/update/password/recover`, {
+                method: "PATCH",
+                credentials: "include",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ email })});
+                if (response.ok) {
+                await checkSession();
+                alert("Contraseña restablecida con éxito");
+                setEmail("");
+                router.push("/pages/auth/login");
+                return true;
+            } else {
+                const error = await response.json();
+                alert(error.message);
+                return false;
+            }
+        } catch (error) {
+            console.error("Hubo un problema al conectarse al backend..", error.message);
+        }
+    };
 
     const checkSession = async () => {
         try {
@@ -180,7 +230,7 @@ export const AuthProvider = ({ children }) => {
     };
     
     return (
-        <AuthContext.Provider value={{ user, logged, registerUser, loginUser, logoutUser, updateUserById, ChangeImageById, image, setImage, email, setEmail, password, setPassword, first_name, setFirst_name, last_name, setLast_name, phone, setPhone, country, setCountry, state, setState, city, setCity, street, setStreet, number, setNumber }}>
+        <AuthContext.Provider value={{ user, logged, registerUser, loginUser, logoutUser, updateUserById, ChangeImageById, ChangePasswordById, RecoverPassword, image, setImage, email, setEmail, password, setPassword, newPassword, setNewPassword, newPasswordTwo, setNewPasswordTwo, first_name, setFirst_name, last_name, setLast_name, phone, setPhone, country, setCountry, state, setState, city, setCity, street, setStreet, number, setNumber }}>
             {children}
         </AuthContext.Provider>
     )

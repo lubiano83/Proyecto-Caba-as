@@ -30,8 +30,8 @@ export async function PATCH(request, { params }) {
         await file.makePublic();
         const publicUrl = `https://storage.googleapis.com/${bucket.name}/${file.name}`;
         await userDao.updateById(id, { image: publicUrl });
-        return NextResponse.json({ message: "Imagen cambiada con éxito.", imageUrl: publicUrl });
+        return NextResponse.json({ message: "Imagen cambiada con éxito..", imageUrl: publicUrl });
     } catch (error) {
-        return NextResponse.json({ message: "Error interno del servidor", error: error.message }, { status: 500 });
+        return NextResponse.json({ message: "Error interno del servidor..", error: error.message },{ status: 500 });
     }
 };

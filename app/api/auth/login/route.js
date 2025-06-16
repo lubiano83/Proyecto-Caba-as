@@ -8,10 +8,8 @@ const userDao = new UserDao();
 
 export async function POST(request) {
     try {
-        const data = await request.json();
-        const { email, password } = data;
+        const { email, password } = await request.json();
         if(!email || !password ) return NextResponse.json({ message: "Todos los campos son requeridos.." }, { status: 400 });
-        const cookieStore = await cookies();
         const user = await userDao.getByProperty({ email });
         if (!user) return NextResponse.json({ message: "Ese usuario no está registrado.." }, { status: 404 });
         if(user[0].loginAttempts >= 3) return NextResponse.json({ message: "Tu cuenta a sido bloqueada, debes cambiar tu contraseña.." }, { status: 403 });
@@ -21,8 +19,8 @@ export async function POST(request) {
             await userDao.updateById(user[0]._id, { loginAttempts: user[0].loginAttempts });
             return NextResponse.json({ status: 401, message: "La contraseña es incorrecta.." }, { status: 401 });
         };
+        const cookieStore = await cookies();
         const userLogged = cookieStore.get(process.env.COOKIE_NAME)?.value;
-        console.log(userLogged);
         if (userLogged) return NextResponse.json({ message: "Ese usuario ya está logeado.." }, { status: 400 });
         const token = jwt.sign({ id: user[0]._id, role: user[0].role, plan: user[0].plan }, process.env.COOKIE_KEY, { expiresIn: "30m" });
         cookieStore.set({ name: process.env.COOKIE_NAME, value: token, httpOnly: true, maxAge: 3600, secure: false, sameSite: "lax", path: "/" });

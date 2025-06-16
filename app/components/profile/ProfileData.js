@@ -30,7 +30,9 @@ export default function ProfileData({ user, logoutUser }) {
                     </div>
                     <div className="flex flex-col justify-center items-center gap-4">
                         <div className="flex justify-center items-center gap-2 flex-wrap">
-                            <Boton fnc={() => handleLogout()}>Salir</Boton>
+                            <Link href={`/pages/profile/password/${user?._id}`}>
+                                <Boton>Password</Boton>
+                            </Link>
                             <Link href={`/pages/profile/edit/${user?._id}`}>
                                 <Boton>Editar</Boton>
                             </Link>
