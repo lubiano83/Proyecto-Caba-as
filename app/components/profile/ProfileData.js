@@ -6,8 +6,7 @@ import Link from "next/link";
 export default function ProfileData({ user, logoutUser }) {
 
     const handleLogout = async() => {
-        const success = await logoutUser();
-        console.log("logout:", success);
+        await logoutUser();
     };
 
     return (
@@ -15,9 +14,10 @@ export default function ProfileData({ user, logoutUser }) {
             { user ? (
                 <div className="text-gray-700 flex flex-col justify-center items-center gap-4 rounded-2xl p-4 overflow-hidden bg-light shadow-sm shadow-gray-700 min-w-72 w-1/2 max-w-md">
                     <div className="w-full h-full flex flex-col justify-center items-center gap-4">
-                        <div className="aspect-square w-full h-auto justify-center items-center bg-medium relative cursor-pointer">
-                            <Link href={`/pages/profile/image/${user?._id}`}>
+                        <div className="w-full h-full flex flex-col justify-center items-center gap-4">
+                            <Link href={`/pages/profile/image/${user?._id}`} className="group aspect-square w-full h-auto relative bg-medium cursor-pointer">
                                 <Image src={user?.image || "/user-circle-svgrepo-com-white.svg"} alt="imagen usuario" fill priority className="object-cover" />
+                                <span className="absolute inset-0 flex justify-center items-center text-gray-700 font-bold text-lg opacity-0 group-hover:opacity-80 bg-white bg-opacity-50 transition-opacity duration-300">Cambiar Imagen</span>
                             </Link>
                         </div>
                         <div className="w-full px-4 flex flex-col justify-between items-start h-48">

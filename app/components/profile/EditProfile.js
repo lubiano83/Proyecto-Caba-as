@@ -10,8 +10,7 @@ export default function EditProfile({ id }) {
 
     const handleSubmit = async(e) => {
         e.preventDefault();
-        const success = await updateUserById(id);
-        console.log("update:", success);
+        await updateUserById(id);
     };
 
     return (

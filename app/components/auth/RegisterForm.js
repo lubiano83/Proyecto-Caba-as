@@ -10,8 +10,7 @@ export default function RegisterForm() {
 
     const handleSubmit = async(e) => {
         e.preventDefault();
-        const success = await registerUser();
-        console.log("register:", success);
+        await registerUser();
     };
 
     return (

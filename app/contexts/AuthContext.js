@@ -133,6 +133,7 @@ export const AuthProvider = ({ children }) => {
 
     const ChangeImageById = async (id) => {
         try {
+            if (!image) return alert("Debes seleccionar una imagen primero..");
             const file = image;
             const buffer = await file.arrayBuffer();
             const response = await fetch(`/api/users/update/image/${id}`, {

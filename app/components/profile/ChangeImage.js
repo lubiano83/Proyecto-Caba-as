@@ -6,12 +6,11 @@ import GoBack from "../GoBack";
 
 export default function ChangeImage({ id }) {
 
-    const { ChangeImageById, setImage } = useAuth();
+    const { ChangeImageById, setImage, image } = useAuth();
 
     const handleSubmit = async(e) => {
         e.preventDefault();
-        const success = await ChangeImageById(id);
-        console.log("image:", success);
+        await ChangeImageById(id);
     };
 
     return (

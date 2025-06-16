@@ -10,8 +10,7 @@ export default function LoginForm() {
 
     const handleSubmit = async(e) => {
         e.preventDefault();
-        const success = await loginUser();
-        console.log("login:", success);
+        await loginUser();
     };
 
     return (
