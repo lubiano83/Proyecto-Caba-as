@@ -8,6 +8,7 @@ export const AuthProvider = ({ children }) => {
 
     const [ user, setUser ] = useState(null);
     const [ logged, setLogged ] = useState(false);
+    const [ image, setImage ] = useState("");
     const [ email, setEmail ] = useState("");
     const [ password, setPassword ] = useState("");
     const [ first_name, setFirst_name ] = useState("");
@@ -101,6 +102,66 @@ export const AuthProvider = ({ children }) => {
         }
     };
 
+    const updateUserById = async(id) => {
+        try {
+            const response = await fetch(`/api/users/update/${id}`, {
+                method: "PUT",
+                credentials: "include",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ first_name, last_name, phone, address: { country, state, city, street, number } })});
+            if(response.ok) {
+                await checkSession();
+                setFirst_name("");
+                setLast_name("");
+                setPhone("");
+                setCountry("");
+                setState("");
+                setCity("");
+                setStreet("");
+                setNumber("");
+                router.push("/pages/profile");
+                return true;
+            } else {
+                const error = await response.json();
+                alert(error.message);
+                return false
+            }
+        } catch (error) {
+            console.error("Hubo un problema al conectarse al backend..", error.message);
+        }
+    };
+
+    const ChangeImageById = async (id) => {
+        try {
+            const file = image;
+            const buffer = await file.arrayBuffer();
+            const response = await fetch(`/api/users/update/image/${id}`, {
+                method: "PATCH",
+                body: buffer,
+                headers: {
+                    "Content-Type": file.type,
+                    "X-Filename": file.name,
+                },
+                credentials: "include",
+            });
+            if (response.ok) {
+                const data = await response.json();
+                alert("Imagen actualizada con éxito");
+                setImage(null);
+                setUser((prev) => ({ ...prev, image: data.imageUrl }));
+                router.push("/pages/profile");
+                return true;
+            } else {
+                const error = await response.json();
+                alert(error.message);
+                return false;
+            }
+        } catch (error) {
+            console.error("Hubo un problema al conectarse al backend..", error.message);
+        }
+    };
+
+
     const checkSession = async () => {
         try {
             const response = await fetch("/api/auth/session", {
@@ -118,7 +179,7 @@ export const AuthProvider = ({ children }) => {
     };
     
     return (
-        <AuthContext.Provider value={{ user, logged, registerUser, loginUser, logoutUser, email, setEmail, password, setPassword, first_name, setFirst_name, last_name, setLast_name, phone, setPhone, country, setCountry, state, setState, city, setCity, street, setStreet, number, setNumber }}>
+        <AuthContext.Provider value={{ user, logged, registerUser, loginUser, logoutUser, updateUserById, ChangeImageById, image, setImage, email, setEmail, password, setPassword, first_name, setFirst_name, last_name, setLast_name, phone, setPhone, country, setCountry, state, setState, city, setCity, street, setStreet, number, setNumber }}>
             {children}
         </AuthContext.Provider>
     )

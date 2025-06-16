@@ -1,12 +1,10 @@
 import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
 import UserDao from "../../../dao/user.dao";
-import SessionsDao from "@/app/dao/session.dao";
 import { isValidPassword } from "../../../utils/bcrypt.utils";
 import jwt from "jsonwebtoken";
 
 const userDao = new UserDao();
-const sessionDao = new SessionsDao();
 
 export async function POST(request) {
     try {
@@ -29,7 +27,6 @@ export async function POST(request) {
         const token = jwt.sign({ id: user[0]._id, role: user[0].role, plan: user[0].plan }, process.env.COOKIE_KEY, { expiresIn: "30m" });
         cookieStore.set({ name: process.env.COOKIE_NAME, value: token, httpOnly: true, maxAge: 3600, secure: false, sameSite: "lax", path: "/" });
         await userDao.updateById(user[0]._id, { loginAttempts: 0 });
-        await sessionDao.create(user[0]._id, token);
         return NextResponse.json({ message: "Login realizado con éxito", token }, { status: 200 });
     } catch (error) {
         return NextResponse.json({ message: "Error interno del servidor..", error: error.message },{ status: 500 });
