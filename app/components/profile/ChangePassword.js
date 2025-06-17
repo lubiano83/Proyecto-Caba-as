@@ -19,7 +19,7 @@ export default function ChangePassword({ id }) {
                 <Title>Change Password:</Title>
                 <input type="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Ingresa tu antigua contraseña.." className="border-2 border-dark rounded-lg bg-white text-gray-700 px-2 py-1 w-full" />
                 <input type="password" name="password" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} placeholder="Ingresa tu nueva contraseña.." className="border-2 border-dark rounded-lg bg-white text-gray-700 px-2 py-1 w-full" />
-                <input type="password" name="password" value={newPasswordTwo} onChange={(e) => setNewPasswordTwo(e.target.value)} placeholder="Ingresa tu nueva contraseña.." className="border-2 border-dark rounded-lg bg-white text-gray-700 px-2 py-1 w-full" />
+                <input type="password" name="password" value={newPasswordTwo} onChange={(e) => setNewPasswordTwo(e.target.value)} placeholder="Repite tu nueva contraseña.." className="border-2 border-dark rounded-lg bg-white text-gray-700 px-2 py-1 w-full" />
                 <div className="flex justify-center items-center gap-2">
                     <GoBack path={"/pages/profile"} />
                     <Boton type="submit">Guardar</Boton>

@@ -8,6 +8,8 @@ export const AuthProvider = ({ children }) => {
 
     const [ user, setUser ] = useState(null);
     const [ logged, setLogged ] = useState(false);
+    const [ quantityLogged, setQuantityLogged ] = useState(0);
+    const [ quantityRegistered, setQuantityRegistered ] = useState(0);
     const [ image, setImage ] = useState("");
     const [ email, setEmail ] = useState("");
     const [ password, setPassword ] = useState("");
@@ -24,9 +26,34 @@ export const AuthProvider = ({ children }) => {
     const router = useRouter();
 
     useEffect(() => {
+        usersRegistered();
+        usersLogged();
         checkSession();
     }, []);
 
+    const usersRegistered = async() => {
+        try {
+            const response = await fetch("/api/users", {
+                method: "GET"
+            });
+            const data = await response.json();
+            setQuantityRegistered(data.payload);
+        } catch (error) {
+            console.error("Hubo un problema al conectarse al backend..", error.message);
+        }
+    };
+
+    const usersLogged = async() => {
+        try {
+            const response = await fetch("/api/sessions", {
+                method: "GET"
+            });
+            const data = await response.json();
+            setQuantityLogged(data.payload);
+        } catch (error) {
+            console.error("Hubo un problema al conectarse al backend..", error.message);
+        }
+    };
 
     const registerUser = async() => {
         try {
@@ -36,6 +63,7 @@ export const AuthProvider = ({ children }) => {
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ first_name, last_name, phone, email, password, address: { country, state, city, street, number }})});
             if(response.ok) {
+                await usersRegistered();
                 setEmail("");
                 setFirst_name("");
                 setLast_name("");
@@ -66,6 +94,7 @@ export const AuthProvider = ({ children }) => {
                 body: JSON.stringify({ email, password })});
             if (response.ok) {
                 await checkSession();
+                await usersLogged();
                 setLogged(true);
                 setEmail("");
                 setPassword("");
@@ -89,6 +118,7 @@ export const AuthProvider = ({ children }) => {
                 credentials: "include",
             });
             if (response.ok) {
+                await usersLogged();
                 alert("Logout realizado con éxito");
                 setLogged(false);
                 setUser(null);
@@ -215,7 +245,7 @@ export const AuthProvider = ({ children }) => {
 
     const checkSession = async () => {
         try {
-            const response = await fetch("/api/auth/session", {
+            const response = await fetch("/api/users/id", {
                 method: "GET",
                 credentials: "include",
             });
@@ -230,7 +260,7 @@ export const AuthProvider = ({ children }) => {
     };
     
     return (
-        <AuthContext.Provider value={{ user, logged, registerUser, loginUser, logoutUser, updateUserById, ChangeImageById, ChangePasswordById, RecoverPassword, image, setImage, email, setEmail, password, setPassword, newPassword, setNewPassword, newPasswordTwo, setNewPasswordTwo, first_name, setFirst_name, last_name, setLast_name, phone, setPhone, country, setCountry, state, setState, city, setCity, street, setStreet, number, setNumber }}>
+        <AuthContext.Provider value={{ user, logged, quantityLogged, quantityRegistered, registerUser, loginUser, logoutUser, updateUserById, ChangeImageById, ChangePasswordById, RecoverPassword, usersRegistered, usersLogged, image, setImage, email, setEmail, password, setPassword, newPassword, setNewPassword, newPasswordTwo, setNewPasswordTwo, first_name, setFirst_name, last_name, setLast_name, phone, setPhone, country, setCountry, state, setState, city, setCity, street, setStreet, number, setNumber }}>
             {children}
         </AuthContext.Provider>
     )

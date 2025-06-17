@@ -1,12 +1,12 @@
-import UserModel from "@/app/models/user.model.js";
+import LodgeModel from "@/app/models/lodge.model.js";
 import connectDB from "@/app/config/mongoose.config.js";
 
-export default class UsersDao {
+export default class LodgesDao {
 
     paginate = async (filters = {}, options = {}) => {
         try {
             await connectDB();
-            return await UserModel.paginate(filters, options);
+            return await LodgeModel.paginate(filters, options);
         } catch (error) {
             throw new Error( "Hubo un error en el servidor..", error.message );
         }
@@ -15,7 +15,7 @@ export default class UsersDao {
     gets = async() => {
         try {
             await connectDB();
-            return await UserModel.find();
+            return await LodgeModel.find();
         } catch (error) {
             throw new Error( "Hubo un error en el servidor..", error.message );
         }
@@ -24,25 +24,25 @@ export default class UsersDao {
     getById = async( id ) => {
         try {
             await connectDB();
-            return await UserModel.findOne({ _id: id });
-        } catch (error) {
-            throw new Error( "Hubo un error en el servidor..", error.message );
-        }
-    }
-
-    getByProperty = async( doc ) => {
-        try {
-            await connectDB();
-            return await UserModel.find( doc );
+            return await LodgeModel.findOne({ _id: id });
         } catch (error) {
             throw new Error( "Hubo un error en el servidor..", error.message );
         }
     };
 
-    create = async( data ) => {
+    getByProperty = async( doc ) => {
         try {
             await connectDB();
-            const item = await UserModel( data );
+            return await LodgeModel.find( doc );
+        } catch (error) {
+            throw new Error( "Hubo un error en el servidor..", error.message );
+        }
+    };
+
+    create = async( userId, data ) => {
+        try {
+            await connectDB();
+            const item = await LodgeModel( userId, data );
             await item.save();
             return item;
         } catch (error) {
@@ -50,23 +50,23 @@ export default class UsersDao {
         }
     };
 
-    updateById = async (id, doc) => {
+    updateById = async(id, doc ) => {
         try {
             await connectDB();
-            const item = await this.getById(id);
-            if (!item) throw new Error("No encontrado..");
-            return await UserModel.findByIdAndUpdate(id, doc, { new: true });
-        } catch (error) {
+            const lodge = await this.getById( id );
+            if ( !lodge ) throw new Error("No encontrado..");
+            return await LodgeModel.findByIdAndUpdate(id, doc, { new: true });
+        } catch ( error ) {
             throw new Error( "Hubo un error en el servidor..", error.message );
         }
-    };    
+    };
 
     deleteById = async( id ) => {
         try {
             await connectDB();
             const item = await this.getById( id );
             if ( !item ) return new Error("No encontrado..");
-            return await UserModel.findOneAndDelete({ _id: id });
+            return await LodgeModel.findOneAndDelete({ _id: id });
         } catch ( error ) {
             throw new Error( "Hubo un error en el servidor..", error.message );
         }
@@ -75,7 +75,7 @@ export default class UsersDao {
     deleteAll = async () => {
         try {
             await connectDB();
-            await UserModel.deleteMany({});
+            await LodgeModel.deleteMany({});
             return await this.gets();
         } catch (error) {
             throw new Error( "Hubo un error en el servidor..", error.message );
