@@ -1,3 +1,4 @@
+import Banner from "./components/Banner";
 import Inicio from "./components/Inicio";
 import { AuthProvider } from "./contexts/AuthContext";
 import "./globals.css";

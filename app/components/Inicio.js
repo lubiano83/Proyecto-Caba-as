@@ -15,7 +15,6 @@ export default function Inicio({ children, email, address, derechos }) {
         <div className="min-h-screen grid grid-rows-[auto_1fr_auto] font-serif">
             <Navbar toggleDarkMode={toggleDarkMode} handleShow={handleShow} />
             <div className="w-full h-full flex flex-col justify-start items-start">
-                <Banner></Banner>
                 { show ? <Menu handleShow={handleShow}  /> : "" }
                 { children }
             </div>
