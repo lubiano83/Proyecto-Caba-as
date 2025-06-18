@@ -16,7 +16,7 @@ export default function Welcome() {
     return (
         <div className="w-full flex flex-col items-center gap-8">
             <div className="w-full overflow-x-auto">
-                <div className="flex gap-4 snap-x snap-mandatory overflow-x-auto scrollbar-hide">
+                <div className="flex gap-2 snap-x snap-mandatory overflow-x-auto scrollbar-hide">
                     {images.map((src, index) => (
                         <div key={index} className="relative min-w-[90%] sm:min-w-[70%] md:min-w-[60%] xl:min-w-[40%] aspect-video snap-center rounded-xl overflow-hidden shadow-md">
                             <Image src={src} alt={`Imagen ${index + 1}`} fill className="object-cover" priority />

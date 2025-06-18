@@ -10,12 +10,12 @@
 }
 
 .dark {
-    --bg-dark: theme(colors.sky.700);
-    --bg-medium: theme(colors.sky.500);
-    --bg-light: theme(colors.sky.100);
-    --text-dark: theme(colors.sky.700);
-    --border-dark: theme(colors.sky.700);
-    --border-medium: theme(colors.sky.500);
+    --bg-dark: theme(colors.cyan.700);
+    --bg-medium: theme(colors.cyan.500);
+    --bg-light: theme(colors.cyan.100);
+    --text-dark: theme(colors.cyan.700);
+    --border-dark: theme(colors.cyan.700);
+    --border-medium: theme(colors.cyan.500);
 }
 
 /* utilidades personalizadas */
