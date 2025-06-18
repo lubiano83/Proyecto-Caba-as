@@ -2,7 +2,7 @@ import Link from "next/link";
 import Logo from "../Logo";
 import SvgImage from "../SvgImage";
 
-export default function Navbar({ toggleDarkMode, handleShow }) {
+export default function Navbar({ toggleDarkMode, handleShow, user }) {
     return (
         <div className="w-full bg-dark py-3 px-2 flex justify-around items-center gap-3 z-3">
             <div className="flex justify-center items-center gap-1">
@@ -11,7 +11,7 @@ export default function Navbar({ toggleDarkMode, handleShow }) {
             </div>
             <SvgImage src={"/sun-svgrepo-com-white.svg"} fnc={toggleDarkMode} />
             <Link href={"/pages/profile"}>
-                <SvgImage src={"/user-circle-svgrepo-com-white.svg"} />
+                <SvgImage src={ user?.image || "/user-circle-svgrepo-com-white.svg" } />
             </Link>
         </div>
     )

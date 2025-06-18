@@ -2,18 +2,20 @@
 
 :root {
     --bg-dark: theme(colors.slate.700);
-    --bg-medium: theme(colors.slate.500);
+    --bg-medium: theme(colors.slate.600);
     --bg-light: theme(colors.slate.100);
     --text-dark: theme(colors.slate.700);
+    --text-medium: theme(colors.slate.600);
     --border-dark: theme(colors.slate.700);
     --border-medium: theme(colors.slate.500);
 }
 
 .dark {
     --bg-dark: theme(colors.cyan.700);
-    --bg-medium: theme(colors.cyan.500);
-    --bg-light: theme(colors.cyan.100);
+    --bg-medium: theme(colors.cyan.600);
+    --bg-light: theme(colors.cyan.50);
     --text-dark: theme(colors.cyan.700);
+    --text-medium: theme(colors.cyan.600);
     --border-dark: theme(colors.cyan.700);
     --border-medium: theme(colors.cyan.500);
 }
@@ -30,6 +32,9 @@
 }
 .text-dark {
     color: var(--text-dark);
+}
+.text-medium {
+    color: var(--text-medium);
 }
 .border-dark {
     border-color: var(--border-dark);

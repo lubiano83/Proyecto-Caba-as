@@ -29,7 +29,7 @@ export const AuthProvider = ({ children }) => {
         usersRegistered();
         usersLogged();
         checkSession();
-    }, []);
+    }, [user]);
 
     const usersRegistered = async() => {
         try {
