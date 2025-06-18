@@ -24,7 +24,7 @@ export default function Welcome() {
                     ))}
                 </div>
             </div>
-            <section className="w-full text-center space-y-4">
+            <section className="w-[90%] text-center space-y-4">
                 <p className="text-lg text-gray-700 leading-relaxed">
                     Las Trancas es un valle mágico rodeado de montañas, bosques nativos y cumbres nevadas. Ideal para quienes buscan
                     desconexión, aire puro y paisajes de ensueño durante todo el año.
