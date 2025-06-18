@@ -17,17 +17,15 @@ export default function Menu({ handleShow }) {
                 <SvgImage src={"/cross-svgrepo-com.svg"} fnc={handleShow} />
             </div>
             <div className="w-full h-full flex flex-col justify-evenly items-center gap-4">
+                <Link href={"/"}>
+                    <p className="hover:text-gray-700">Inicio</p>
+                </Link>
                 { user?.role === "admin" && 
                     <Link href={"/pages/admin"}>
                         <p className="hover:text-gray-700">Admin</p>
                     </Link>
                 }
-                { logged && 
-                    <Link href={"/pages/profile"}>
-                        <p className="hover:text-gray-700">Profile</p>
-                    </Link>
-                }
-                <Link href={"/"}>
+                <Link href={"/pages/lodges"}>
                     <p className="hover:text-gray-700">Lodges</p>
                 </Link>
                 { !logged && 
