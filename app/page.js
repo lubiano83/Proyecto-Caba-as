@@ -8,9 +8,11 @@ export default function Home() {
     <div className="h-full w-full flex flex-col justify-center items-center text-gray-700 p-8 gap-8">
       <Title>La Vida en Las Trancas</Title>
       <Welcome />
-      <Link href="/pages/lodges">
-        <Boton>Reservar</Boton>
-      </Link>
+      <div className="pt-[-4]">
+        <Link href="/pages/lodges">
+          <Boton>Reservar</Boton>
+        </Link>
+      </div>
     </div>
   );
 }

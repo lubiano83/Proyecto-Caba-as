@@ -9,22 +9,22 @@ export default function Welcome() {
   useEffect(() => {
     const fetchImages = async () => {
       try {
-        const response = await fetch("/api/welcome");
-        const data = await response.json();
+        const res = await fetch("/api/welcome");
+        const data = await res.json();
         setImages(data);
       } catch (error) {
-        console.error("Error al obtener imágenes:", error.message);
+        console.error("Error al obtener imágenes:", error);
       }
     };
     fetchImages();
-  }, [images.length]);
+  }, []);
 
   return (
     <div className="w-full flex flex-col items-center gap-8">
       <div className="w-full overflow-x-auto">
-        <div className="w-full h-[33vh] overflow-x-auto relative">
+        <div className="w-full h-[40vh] overflow-x-auto relative">
           {images.length === 0 ? (
-            <div className="h-full w-full flex justify-center items-center">
+            <div className="w-full h-full flex items-center justify-center">
               <Message>Cargando...</Message>
             </div>
           ) : (
@@ -36,7 +36,7 @@ export default function Welcome() {
               ))}
             </div>
           )}
-      </div>
+        </div>
       </div>
       <section className="w-[90%] text-center space-y-4">
         <p className="text-lg text-gray-700 leading-relaxed">
