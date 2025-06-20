@@ -3,11 +3,7 @@ import Boton from "../Boton";
 import Message from "../Message";
 import Link from "next/link";
 
-export default function ProfileData({ user, logoutUser }) {
-
-    const handleLogout = async() => {
-        await logoutUser();
-    };
+export default function ProfileData({ user }) {
 
     return (
         <>

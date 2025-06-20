@@ -18,24 +18,24 @@ export default function Menu({ handleShow }) {
             </div>
             <div className="w-full h-full flex flex-col justify-evenly items-center gap-4">
                 <Link href={"/"}>
-                    <p className="hover:text-gray-700">Inicio</p>
+                    <p className="hover:text-gray-400">Inicio</p>
                 </Link>
                 { user?.role === "admin" && 
                     <Link href={"/pages/admin"}>
-                        <p className="hover:text-gray-700">Admin</p>
+                        <p className="hover:text-gray-400">Admin</p>
                     </Link>
                 }
                 <Link href={"/pages/lodges"}>
-                    <p className="hover:text-gray-700">Lodges</p>
+                    <p className="hover:text-gray-400">Lodges</p>
                 </Link>
                 { !logged && 
                     <Link href={"/pages/auth/login"}>
-                        <p className="hover:text-gray-700">Login</p>
+                        <p className="hover:text-gray-400">Login</p>
                     </Link>
                 }
                 { !logged && 
                     <Link href={"/pages/auth/register"}>
-                        <p className="hover:text-gray-700">Register</p>
+                        <p className="hover:text-gray-400">Register</p>
                     </Link>
                 }
                 { logged && <p className="hover:text-gray-700" onClick={() => handleLogout()}>Logout</p> }

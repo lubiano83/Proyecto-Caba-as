@@ -39,10 +39,11 @@ export default class LodgesDao {
         }
     };
 
-    create = async( userId, data ) => {
+    create = async( data ) => {
         try {
             await connectDB();
-            const item = await LodgeModel( userId, data );
+            const item = await LodgeModel( data );
+            console.log(item)
             await item.save();
             return item;
         } catch (error) {

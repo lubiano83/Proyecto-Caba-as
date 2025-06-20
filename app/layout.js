@@ -1,6 +1,7 @@
 import Banner from "./components/Banner";
 import Inicio from "./components/Inicio";
 import { AuthProvider } from "./contexts/AuthContext";
+import { LodgeProvider } from "./contexts/LodgeContext";
 import "./globals.css";
 
 export const metadata = {
@@ -20,9 +21,11 @@ export default function RootLayout({ children }) {
     <html lang="es">
       <body className="text-white">
         <AuthProvider>
-          <Inicio email={email} address={address} derechos={derechos} >
-            {children}
-          </Inicio>
+          <LodgeProvider>
+            <Inicio email={email} address={address} derechos={derechos} >
+              {children}
+            </Inicio>
+          </LodgeProvider>
         </AuthProvider>
       </body>
     </html>

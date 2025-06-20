@@ -4,15 +4,11 @@ import paginate from "mongoose-paginate-v2";
 const collection = "lodges";
 
 const lodgeSchema = new mongoose.Schema({
-    userId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "users"
-    },
     image: {
         type: Array,
         default: []
     },
-    hotel: {
+    name: {
         type: String,
         required: true,
         trim: true
@@ -68,10 +64,6 @@ const lodgeSchema = new mongoose.Schema({
             ref: "reservations"
         }
     ],
-    mapUrl: {
-        type: String,
-        default: ""
-    }
 }, { timestamps: true });
 
 lodgeSchema.plugin(paginate);
