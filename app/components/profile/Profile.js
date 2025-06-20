@@ -9,7 +9,7 @@ export default function Profile() {
 
     return (
         <div className="w-full h-full flex justify-center items-center p-8">
-            { !logged ? <LoginPage /> : <ProfileData user={user} /> }
+            { logged ? <ProfileData user={user} /> : <LoginPage /> }
         </div>
     )
 };

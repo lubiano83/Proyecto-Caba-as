@@ -25,7 +25,7 @@ export async function POST(request) {
         const userLogged = cookieStore.get(process.env.COOKIE_NAME)?.value;
         if (userLogged) return NextResponse.json({ message: "Ese usuario ya está logeado.." }, { status: 400 });
         const token = jwt.sign({ id: user[0]._id, role: user[0].role, plan: user[0].plan }, process.env.COOKIE_KEY, { expiresIn: "30m" });
-        cookieStore.set({ name: process.env.COOKIE_NAME, value: token, httpOnly: true, maxAge: 1800, secure: false, sameSite: "lax", path: "/" });
+        cookieStore.set({ name: process.env.COOKIE_NAME, value: token, httpOnly: true, maxAge: 3600, secure: false, sameSite: "lax", path: "/" });
         await userDao.updateById(user[0]._id, { loginAttempts: 0 });
         await sessionDao.create(user[0]._id, token);
         return NextResponse.json({ message: "Login realizado con éxito", token }, { status: 200 });

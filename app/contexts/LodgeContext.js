@@ -6,6 +6,7 @@ export const LodgeContext = createContext();
 export const LodgeProvider = ({ children }) => {
 
     const [ lodges, setLodges ] = useState([]);
+    const [ lodgeById, setLodgeById ] = useState({});
     const [ name, setName ] = useState("");
     const [ size, setSize ] = useState("");
     const [ bedroom, setBedroom ] = useState("");
@@ -31,8 +32,20 @@ export const LodgeProvider = ({ children }) => {
         }
     };
 
+    const getLodgeById = async(id) => {
+        try {
+            const response = await fetch(`/api/lodges/${id}`, {
+                method: "GET"
+            })
+            const data = await response.json();
+            setLodgeById(data.payload);
+        } catch (error) {
+            console.error("Hubo un problema al conectarse al backend..", error.message);
+        }
+    };
+
     return (
-        <LodgeContext.Provider value={{ lodges }}>
+        <LodgeContext.Provider value={{ lodges, lodgeById, getLodgeById }}>
             {children}
         </LodgeContext.Provider>
     )

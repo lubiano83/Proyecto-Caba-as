@@ -4,7 +4,7 @@ import paginate from "mongoose-paginate-v2";
 const collection = "lodges";
 
 const lodgeSchema = new mongoose.Schema({
-    image: {
+    images: {
         type: Array,
         default: []
     },
