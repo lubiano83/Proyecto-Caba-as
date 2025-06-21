@@ -1,7 +1,7 @@
 import UserModel from "@/app/models/user.model.js";
 import connectDB from "@/app/config/mongoose.config.js";
 
-export default class UsersDao {
+export default class UserDao {
 
     paginate = async (filters = {}, options = {}) => {
         try {

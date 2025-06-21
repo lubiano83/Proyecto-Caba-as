@@ -12,23 +12,23 @@ export default function Lodges() {
     return (
         <div className="w-full h-full flex flex-col justify-center items-center p-8 text-gray-700 gap-2">
             {
-                !lodges || lodges.length === 0 ? <Message>Cargando...</Message> : ( lodges.map(lodge => (
-                    <div key={lodge._id} className="min-w-72 w-[100%] max-w-md bg-light rounded-xl p-4 shadow-sm shadow-gray-700 flex flex-col justify-center items-center gap-4">
-                        <div className="w-full aspect-square relative">
-                            <Image src={lodge?.image[0] || "/house-svgrepo-com.svg"} alt="lodge image" fill priority className="object-cover object-center rounded-xl" />
+                !lodges || lodges.length === 0 ? ( <Message>Cargando...</Message> ) : (
+                    lodges.map((lodge) => ( lodge.available === false ? "" : (
+                        <div key={lodge._id} className="min-w-72 w-full max-w-md bg-light rounded-xl p-4 shadow-sm shadow-gray-700 flex flex-col justify-center items-center gap-4">
+                            <div className="w-full aspect-square relative bg-medium">
+                                <Image src={Array.isArray(lodge?.image) && lodge.image.length > 0 ? lodge.image[0] : "/house-svgrepo-com.svg"} alt="lodge image" fill priority className="object-cover object-center rounded-xl" />
+                            </div>
+                            <div className="w-full flex flex-col justify-center items-start">
+                                <h3><strong>Nombre:</strong> {lodge.name}</h3>
+                                <h3><strong>Capacidad:</strong> {lodge.capacity - 1}-{lodge.capacity} personas</h3>
+                            </div>
+                            <Link href={`/pages/lodges/${lodge._id}`}>
+                                <Boton>Detalle</Boton>
+                            </Link>
                         </div>
-                        <div className="w-full flex flex-col justify-center items-start">
-                            <h3><strong>Nombre:</strong> {lodge?.name}</h3>
-                            <h3><strong>Capacidad:</strong> {lodge?.capacity-1}-{lodge?.capacity} personas</h3>
-                        </div>
-                        <Link href={`/pages/lodges/${lodge._id}`}>
-                            <Boton>
-                                Detalle
-                            </Boton>
-                        </Link>
-                    </div>
-                )))
+                    )))
+                )
             }
         </div>
-    )
-};
+    );
+}
