@@ -16,7 +16,7 @@ export default function Lodges() {
                     lodges.map((lodge) => ( lodge.available === false ? "" : (
                         <div key={lodge._id} className="min-w-72 w-full max-w-md bg-light rounded-xl p-4 shadow-sm shadow-gray-700 flex flex-col justify-center items-center gap-4">
                             <div className="w-full aspect-square relative bg-medium">
-                                <Image src={Array.isArray(lodge?.image) && lodge.image.length > 0 ? lodge.image[0] : "/house-svgrepo-com.svg"} alt="lodge image" fill priority className="object-cover object-center rounded-xl" />
+                                <Image src={Array.isArray(lodge?.images) && lodge.images.length > 0 ? lodge.images[0] : "/house-svgrepo-com.svg"} alt="lodge image" fill priority className="object-cover object-center" />
                             </div>
                             <div className="w-full flex flex-col justify-center items-start">
                                 <h3><strong>Nombre:</strong> {lodge.name}</h3>

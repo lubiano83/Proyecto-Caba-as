@@ -44,8 +44,111 @@ export const LodgeProvider = ({ children }) => {
         }
     };
 
+    const createLodge = async() => {
+        try {
+            const response = await fetch("/api/lodges", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    name,
+                    size,
+                    bedroom,
+                    bathroom,
+                    capacity,
+                    season: {
+                        high,
+                        medium,
+                        low
+                    },
+                })
+            })
+            if (response.ok) {
+                alert("Cabaña creada con éxito");
+                setHotel("");
+                setSize("");
+                setBedroom("");
+                setBathroom("");
+                setCapacity("");
+                setHigh("");
+                setMedium("");
+                setLow("");
+                await getLodges();
+                return true;
+            } else {
+                const error = await response.json();
+                alert(error.message);
+                return false;
+            }
+        } catch (error) {
+            console.error("Hubo un problema al conectarse al backend..", error.message);
+        }
+    };
+
+    const updateLodgeById = async(id) => {
+        try {
+            const response = await fetch(`/api/lodges/${id}`, {
+                method: "PUT",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    name,
+                    size,
+                    bedroom,
+                    bathroom,
+                    capacity,
+                    season: {
+                        high,
+                        medium,
+                        low
+                    },
+                })
+            });
+            if (response.ok) {
+                alert("Cabaña modificada con éxito");
+                setHotel("");
+                setSize("");
+                setBedroom("");
+                setBathroom("");
+                setCapacity("");
+                setWifi("");
+                setHigh("");
+                setMedium("");
+                setLow("");
+                await getLodges();
+                return true;
+            } else {
+                const error = await response.json();
+                alert(error.message);
+                return false;
+            }
+        } catch (error) {
+            console.error("Hubo un problema al conectarse al backend..", error.message);
+        }
+    };
+
+    const deleteLodgeById = async(id) => {
+        try {
+            const response = await fetch(`/api/lodges/${id}`, {
+                method: "DELETE"
+            });
+            if (response.ok) {
+                alert("Lodge eliminado con éxito");
+                setImage(null);
+                await getLodges();
+                return true;
+            } else {
+                const error = await response.json();
+                alert(error.message);
+                return false;
+            }
+        } catch (error) {
+            console.error("Hubo un problema al conectarse al backend..", error.message);
+        }
+    };
+
+    const clearLodge = () => setLodgeById(null);
+
     return (
-        <LodgeContext.Provider value={{ lodges, lodgeById, getLodgeById }}>
+        <LodgeContext.Provider value={{ lodges, lodgeById, createLodge, getLodgeById, updateLodgeById, deleteLodgeById, clearLodge }}>
             {children}
         </LodgeContext.Provider>
     )
