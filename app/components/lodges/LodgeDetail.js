@@ -1,5 +1,6 @@
 "use client";
 import useLodge from "@/app/hooks/useLodge";
+import useAuth from "@/app/hooks/useAuth";
 import { useEffect } from "react";
 import Message from "../Message";
 import Image from "next/image";
@@ -10,6 +11,7 @@ import GoBack from "../GoBack";
 export default function LodgeDetail({ id }) {
 
     const { lodgeById, getLodgeById, clearLodge } = useLodge();
+    const { user } = useAuth();
 
     useEffect(() => {
         clearLodge();
@@ -58,7 +60,7 @@ export default function LodgeDetail({ id }) {
                         <div className="flex justify-center items-center gap-2">
                             <GoBack path={"/pages/lodges"} />
                             <Link href={"/"}>
-                                <Boton fnc={() => alert("Reserva realizada con éxito.")}>
+                                <Boton fnc={() => user ? alert("Reserva realizada con éxito.") : alert("Primero debes iniciar session.")}>
                                     Reservar
                                 </Boton>
                             </Link>

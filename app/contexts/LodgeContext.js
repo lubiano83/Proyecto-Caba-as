@@ -126,7 +126,7 @@ export const LodgeProvider = ({ children }) => {
         }
     };
 
-    const ChangeWifi = async(id, newWifi) => {
+    const changeWifi = async(id, newWifi) => {
         try {
             const response = await fetch(`/api/lodges/wifi/${id}`, {
                 method: "PATCH",
@@ -242,7 +242,7 @@ export const LodgeProvider = ({ children }) => {
     const clearLodge = () => setLodgeById(null);
 
     return (
-        <LodgeContext.Provider value={{ lodges, lodgeById, createLodge, getLodgeById, updateLodgeById, ChangeWifi, addImageToLodgeById, changeAvailable, deleteAllImageFromLodge, deleteLodgeById, clearLodge }}>
+        <LodgeContext.Provider value={{ lodges, lodgeById, createLodge, getLodgeById, updateLodgeById, changeWifi, addImageToLodgeById, changeAvailable, deleteAllImageFromLodge, deleteLodgeById, clearLodge, image, setImage, name, setName, size, setSize, bedroom, setBedroom, bathroom, setBathroom, capacity, setCapacity, high, setHigh, medium, setMedium, low, setLow }}>
             {children}
         </LodgeContext.Provider>
     )

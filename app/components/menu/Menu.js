@@ -26,7 +26,7 @@ export default function Menu({ handleShow }) {
                     </Link>
                 }
                 <Link href={"/pages/lodges"}>
-                    <p className="hover:text-gray-400">Lodges</p>
+                    <p className="hover:text-gray-400">Cabañas</p>
                 </Link>
                 { !logged && 
                     <Link href={"/pages/auth/login"}>
