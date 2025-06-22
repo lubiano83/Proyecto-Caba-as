@@ -31,4 +31,20 @@ export async function PATCH(request, { params }) {
   } catch (error) {
     return NextResponse.json({ message: "Error al subir imagen.", error: error.message }, { status: 500 });
   }
-}
+};
+
+export async function DELETE(request, { params }) {
+  try {
+    const { id } = await params;
+    const lodge = await lodgeDao.getById(id);
+    if (!lodge) return NextResponse.json({ message: "Ese lodge no existe.." }, { status: 404 });
+    const imagesDeleted = { images: [] }
+    const success = await lodgeDao.updateById(id, imagesDeleted);
+    if(!success) return NextResponse.json({ message: "No se pudo eliminar las imagenes.." }, { status: 400 });
+    const changeAvailable = { available: false }
+    await lodgeDao.updateById(id, changeAvailable);
+    return NextResponse.json({ message: "Todas las imagenes eliminadas con exito.." }, { status: 200 });
+  } catch (error) {
+    return NextResponse.json({ message: "Error al subir imagen.", error: error.message }, { status: 500 });
+  }
+};

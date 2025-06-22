@@ -8,9 +8,9 @@ export default function Banner({ children }) {
 
     return (
         <section className="w-full py-1 px-4 bg-medium flex justify-between items-center gap-4 text-white">
-            <p onClick={() => router.back()}><SvgImage src={"/arrow-sm-left-svgrepo-com.svg"} /></p>
-            <p>{ children }</p>
-            <p onClick={() => router.forward()}><SvgImage src={"/arrow-sm-right-svgrepo-com.svg"} /></p>
+            <div onClick={() => router.back()}><SvgImage src={"/arrow-sm-left-svgrepo-com.svg"} /></div>
+            <div className="w-full flex justify-evenly items-center gap-4">{ children }</div>
+            <div onClick={() => router.forward()}><SvgImage src={"/arrow-sm-right-svgrepo-com.svg"} /></div>
         </section>
     )
 };
