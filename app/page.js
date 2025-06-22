@@ -9,7 +9,7 @@ export default function Home() {
       <Title>La Vida en Las Trancas</Title>
       <Welcome />
       <Link href="/pages/lodges">
-        <Boton>Reservar</Boton>
+        <Boton>Cabañas</Boton>
       </Link>
     </div>
   );
