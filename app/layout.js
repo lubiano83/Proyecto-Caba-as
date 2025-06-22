@@ -1,4 +1,3 @@
-import Banner from "./components/Banner";
 import Inicio from "./components/Inicio";
 import { AuthProvider } from "./contexts/AuthContext";
 import { LodgeProvider } from "./contexts/LodgeContext";
@@ -15,7 +14,6 @@ export default function RootLayout({ children }) {
   const address = "Hijuelas 20, Las Trancas, Pinto.";
   const year = new Date().getFullYear();
   const derechos = `© ${year} Todos los derechos reservados`;
-  const linkedin = "https://www.linkedin.com/in/jos%C3%A9-pablo-lubiano-08559b9a/";
 
   return (
     <html lang="es">

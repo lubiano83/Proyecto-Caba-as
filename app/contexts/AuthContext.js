@@ -64,6 +64,7 @@ export const AuthProvider = ({ children }) => {
                 body: JSON.stringify({ first_name, last_name, phone, email, password, address: { country, state, city, street, number }})});
             if(response.ok) {
                 await usersRegistered();
+                alert("Registro realizado con exito.");
                 setEmail("");
                 setFirst_name("");
                 setLast_name("");
@@ -95,6 +96,7 @@ export const AuthProvider = ({ children }) => {
             if (response.ok) {
                 await checkSession();
                 await usersLogged();
+                alert("Login realizado con exito.");
                 setLogged(true);
                 setEmail("");
                 setPassword("");
@@ -118,6 +120,7 @@ export const AuthProvider = ({ children }) => {
                 credentials: "include",
             });
             if (response.ok) {
+                await checkSession();
                 await usersLogged();
                 alert("Logout realizado con éxito");
                 setLogged(false);
@@ -127,6 +130,10 @@ export const AuthProvider = ({ children }) => {
             } else {
                 const error = await response.json();
                 alert(error.message);
+                setLogged(false);
+                setUser(null);
+                await checkSession();
+                router.push("/");
                 return false;
             }
         } catch (error) {
