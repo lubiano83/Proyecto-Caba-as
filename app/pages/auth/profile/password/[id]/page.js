@@ -1,5 +1,5 @@
 "use client";
-import ChangePassword from "@/app/components/profile/ChangePassword";
+import ChangePassword from "@/app/components/auth/profile/ChangePassword";
 import { useParams } from "next/navigation";
 
 export default function ChangePasswordPage() {

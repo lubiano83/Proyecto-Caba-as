@@ -1,6 +1,6 @@
 "use client";
 import { useRouter } from "next/navigation";
-import SvgImage from "./SvgImage";
+import SvgImage from "../SvgImage";
 
 export default function Banner({ children }) {
 

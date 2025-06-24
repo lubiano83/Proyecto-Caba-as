@@ -1,7 +1,7 @@
 "use client";
 import useLodge from "@/app/hooks/useLodge";
 import useAuth from "@/app/hooks/useAuth";
-import Banner from "@/app/components/Banner";
+import Banner from "@/app/components/menu/Banner";
 import Message from "@/app/components/Message";
 
 export default function AdminLayout({ children }) {

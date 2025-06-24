@@ -10,7 +10,7 @@ export default function Navbar({ toggleDarkMode, handleShow, user }) {
                 <Logo />
             </div>
             <SvgImage src={"/sun-svgrepo-com-white.svg"} fnc={toggleDarkMode} />
-            <Link href={"/pages/profile"}>
+            <Link href={"/pages/auth/profile"}>
                 <SvgImage src={ user?.image || "/user-circle-svgrepo-com-white.svg" } />
             </Link>
         </div>

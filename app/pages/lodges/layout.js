@@ -1,4 +1,4 @@
-import Banner from "@/app/components/Banner";
+import Banner from "@/app/components/menu/Banner";
 
 export default function LodgesLayout({ children }) {
     return (

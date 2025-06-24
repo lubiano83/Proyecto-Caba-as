@@ -1,6 +1,5 @@
 import Link from "next/link";
 import Message from "../Message";
-import Title from "../Title";
 
 export default function Admin() {
 

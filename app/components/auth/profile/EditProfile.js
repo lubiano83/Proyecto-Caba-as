@@ -1,8 +1,8 @@
 "use client";
 import useAuth from "@/app/hooks/useAuth";
-import Title from "../Title";
-import Boton from "../Boton";
-import GoBack from "../GoBack";
+import Title from "../../Title";
+import Boton from "../../Boton";
+import GoBack from "../../GoBack";
 
 export default function EditProfile({ id }) {
 
@@ -26,7 +26,7 @@ export default function EditProfile({ id }) {
                 <input type="text" name="number" value={number} onChange={(e) => setNumber(e.target.value)} placeholder="Ingresa tu numero.." className="border-2 border-dark rounded-lg bg-white text-gray-700 px-2 py-1 w-full" />
                 <input type="text" name="phone" value={phone} onChange={(e) => setPhone(e.target.value)} placeholder="Ingresa tu telefono.." className="border-2 border-dark rounded-lg bg-white text-gray-700 px-2 py-1 w-full" />
                 <div className="flex justify-center items-center gap-2">
-                    <GoBack path={"/pages/profile"} />
+                    <GoBack path={"/pages/auth/profile"} />
                     <Boton type="submit">Guardar</Boton>
                 </div>
             </form>

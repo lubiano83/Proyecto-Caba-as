@@ -1,8 +1,6 @@
 "use client";
 import Link from "next/link";
-import Title from "../../Title";
 import SvgImage from "../../SvgImage";
-import GoBack from "../../GoBack";
 import useLodge from "@/app/hooks/useLodge";
 
 export default function Lodges() {
@@ -11,39 +9,35 @@ export default function Lodges() {
 
     return (
         <div className="flex flex-col justify-between items-center gap-6">
-            <table className="hidden xl:flex flex-col justify-center items-center shadow-sm shadow-gray-700 bg-light">
+            <table className="flex flex-col justify-center items-center shadow-sm shadow-gray-700 bg-light">
                 <thead className="bg-medium text-white">
-                    <tr className="border">
-                        <th className={`border w-24 p-2`}>Imagen</th>
-                        <th className={`border w-44 p-2`}>Nombre</th>
-                        <th className={`border w-18 p-2`}>Piezas</th>
-                        <th className={`border w-18 p-2`}>Baños</th>
-                        <th className={`border w-15 p-2`}>Mt2</th>
-                        <th className={`border w-24 p-2`}>Personas</th>
-                        <th className={`border w-16 p-2`}>Wifi</th>
-                        <th className={`border w-22 p-2`}>T/Alta</th>
-                        <th className={`border w-22 p-2`}>T/Media</th>
-                        <th className={`border w-22 p-2`}>T/Baja</th>
-                        <th className={`border w-27 p-2`}>Disponible</th>
-                        <th className={`border w-40 p-2`}>Acciones</th>
+                    <tr>
+                        <th className="border border-white w-24 p-2">Imagen</th>
+                        <th className="border border-white w-44 p-2">Nombre</th>
+                        <th className="border border-white w-18 p-2">Piezas</th>
+                        <th className="border border-white w-18 p-2">Baños</th>
+                        <th className="border border-white w-15 p-2">Mt2</th>
+                        <th className="border border-white w-24 p-2">Personas</th>
+                        <th className="border border-white w-16 p-2">Wifi</th>
+                        <th className="border border-white w-22 p-2">T/Alta</th>
+                        <th className="border border-white w-22 p-2">T/Media</th>
+                        <th className="border border-white w-22 p-2">T/Baja</th>
+                        <th className="border border-white w-27 p-2">Disponible</th>
+                        <th className="border border-white w-40 p-2">Acciones</th>
                     </tr>
                 </thead>
                 <tbody className="text-gray-700 rounded-xl">
                     {
                         lodges?.map(lodge => (
                             <tr key={lodge._id} className="text-center rounded-xl">
-                                <td className="border w-24 p-2 gap-1">
+                                <td className="border border-gray-700 w-24 p-2 gap-1">
                                     { lodge.images.length > 0 ? (
                                         lodge.images.map((img, index) => <Link key={index} href={img} target="_blank">{ index === 4 ? index+1 : `${index+1},` } </Link> )
                                     ) : (
                                         "0"
                                     )}
                                 </td>
-                                <td className={`border w-44 p-2 truncate max-w-[12rem]`}>
-                                    <Link href={"/"} className="hover:underline">
-                                        {lodge.name}
-                                    </Link>
-                                </td>
+                                <td className={`border w-44 p-2 truncate max-w-[12rem]`}>{lodge.name}</td>
                                 <td className={`border w-18 p-2`}>{lodge.bedroom}</td>
                                 <td className={`border w-18 p-2`}>{lodge.bathroom}</td>
                                 <td className={`border w-15 p-2`}>{lodge.size}</td>
@@ -68,7 +62,7 @@ export default function Lodges() {
                                             </span>
                                         </div>
                                         <div className="relative group">
-                                            <Link href={"/pages/admin/lodges/image"}>
+                                            <Link href={`/pages/admin/lodges/image/${lodge._id}`}>
                                                 <SvgImage src={"/image-plus-svgrepo-com-green.svg"} />
                                             </Link>
                                             <span className={`absolute -top-8 left-1/2 transform -translate-x-1/2 scale-0 group-hover:scale-100 transition-all bg-white text-xs p-1 rounded-md w-24`}>

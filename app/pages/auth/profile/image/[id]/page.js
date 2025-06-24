@@ -1,5 +1,5 @@
 "use client";
-import ChangeImage from "@/app/components/profile/ChangeImage";
+import ChangeImage from "@/app/components/auth/profile/ChangeImage";
 import { useParams } from "next/navigation";
 
 export default function ChangeImagePage() {

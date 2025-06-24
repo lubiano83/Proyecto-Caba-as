@@ -1,5 +1,6 @@
 "use client";
 import { createContext, useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
 export const LodgeContext = createContext();
 
@@ -16,6 +17,7 @@ export const LodgeProvider = ({ children }) => {
     const [ high, setHigh ] = useState("");
     const [ medium, setMedium ] = useState("");
     const [ low, setLow ] = useState("");
+    const router = useRouter();
 
     useEffect(() => {
         getLodges();
@@ -154,7 +156,7 @@ export const LodgeProvider = ({ children }) => {
         try {
             const formData = new FormData();
             formData.append("image", image);
-            const response = await fetch(`/api/lodges/${id}`, {
+            const response = await fetch(`/api/lodges/image/${id}`, {
                 method: "PATCH",
                 body: formData,
             });
@@ -163,6 +165,7 @@ export const LodgeProvider = ({ children }) => {
                 setImage(null);
                 await getLodges();
                 await getLodgeById(id);
+                router.push("/pages/admin/lodges");
                 return true;
             } else {
                 const error = await response.json();

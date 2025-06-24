@@ -1,10 +1,9 @@
 "use client";
 import Footer from "./footer/Footer";
-import Navbar from "./header/Navbar";
+import Navbar from "./navbar/Navbar";
 import Menu from "./menu/Menu";
 import useDarkMode from "../hooks/useDarkMode";
 import useShow from "../hooks/useShow";
-import Banner from "./Banner";
 import useAuth from "../hooks/useAuth";
 
 export default function Inicio({ children, email, address, derechos }) {

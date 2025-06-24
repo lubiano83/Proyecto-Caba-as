@@ -190,7 +190,7 @@ export const AuthProvider = ({ children }) => {
                 alert("Imagen actualizada con éxito");
                 setImage(null);
                 setUser((prev) => ({ ...prev, image: data.imageUrl }));
-                router.push("/pages/profile");
+                router.push("/pages/auth/profile");
                 return true;
             } else {
                 const error = await response.json();
