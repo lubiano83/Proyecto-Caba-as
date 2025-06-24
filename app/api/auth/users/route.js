@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import UserDao from "../../dao/user.dao";
+import UserDao from "@/app/dao/user.dao";
 
 const userDao = new UserDao();
 

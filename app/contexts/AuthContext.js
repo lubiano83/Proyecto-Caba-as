@@ -33,7 +33,7 @@ export const AuthProvider = ({ children }) => {
 
     const usersRegistered = async() => {
         try {
-            const response = await fetch("/api/users", {
+            const response = await fetch("/api/auth/users", {
                 method: "GET"
             });
             const data = await response.json();
@@ -45,7 +45,7 @@ export const AuthProvider = ({ children }) => {
 
     const usersLogged = async() => {
         try {
-            const response = await fetch("/api/sessions", {
+            const response = await fetch("/api/auth/users/sessions", {
                 method: "GET"
             });
             const data = await response.json();
@@ -143,7 +143,7 @@ export const AuthProvider = ({ children }) => {
 
     const updateUserById = async(id) => {
         try {
-            const response = await fetch(`/api/users/update/${id}`, {
+            const response = await fetch(`/api/auth/users/update/${id}`, {
                 method: "PUT",
                 credentials: "include",
                 headers: { "Content-Type": "application/json" },
@@ -175,7 +175,7 @@ export const AuthProvider = ({ children }) => {
             if (!image) return alert("Debes seleccionar una imagen primero..");
             const file = image;
             const buffer = await file.arrayBuffer();
-            const response = await fetch(`/api/users/update/image/${id}`, {
+            const response = await fetch(`/api/auth/users/update/image/${id}`, {
                 method: "PATCH",
                 body: buffer,
                 headers: {
@@ -204,7 +204,7 @@ export const AuthProvider = ({ children }) => {
 
     const ChangePasswordById = async(id) => {
         try {
-            const response = await fetch(`/api/users/update/password/${id}`, {
+            const response = await fetch(`/api/auth/users/update/password/${id}`, {
                 method: "PATCH",
                 credentials: "include",
                 headers: { "Content-Type": "application/json" },
@@ -229,7 +229,7 @@ export const AuthProvider = ({ children }) => {
 
     const RecoverPassword = async() => {
         try {
-            const response = await fetch(`/api/users/update/password/recover`, {
+            const response = await fetch(`/api/auth/users/update/password/recover`, {
                 method: "PATCH",
                 credentials: "include",
                 headers: { "Content-Type": "application/json" },
@@ -252,7 +252,7 @@ export const AuthProvider = ({ children }) => {
 
     const checkSession = async () => {
         try {
-            const response = await fetch("/api/users/id", {
+            const response = await fetch("/api/auth/users/id", {
                 method: "GET",
                 credentials: "include",
             });
