@@ -59,11 +59,17 @@ export default function LodgeDetail({ id }) {
                         </div>
                         <div className="flex justify-center items-center gap-2">
                             <GoBack path={"/pages/lodges"} />
-                            <Link href={"/"}>
-                                <Boton fnc={() => user ? alert("Reserva realizada con éxito.") : alert("Primero debes iniciar session.")}>
+                            { user ? (
+                                <Link href={"/pages/reservations"}>
+                                    <Boton>
+                                        Reservar
+                                    </Boton>
+                                </Link>
+                            ) : (
+                                <Boton fnc={() => alert("Primero debes iniciar sesion..")}>
                                     Reservar
                                 </Boton>
-                            </Link>
+                            ) }
                         </div>
                     </div>
                 </div>
