@@ -12,8 +12,8 @@ export default function Menu({ handleShow }) {
     };
 
     return (
-        <aside className="fixed top-0 w-64 h-full bg-medium flex flex-col justify-center items-center font-bold z-1 pt-13 pb-42 sm:pb-22">
-            <div className="w-full pt-4 pr-4 flex justify-end items-end">
+        <aside className="fixed top-0 w-64 h-full bg-medium flex flex-col justify-center items-center font-bold z-3">
+            <div className="w-full pt-4 pr-4 flex justify-end items-start">
                 <SvgImage src={"/cross-svgrepo-com.svg"} fnc={handleShow} />
             </div>
             <div className="w-full h-full flex flex-col justify-evenly items-center gap-4">
