@@ -16,6 +16,7 @@ export async function POST(request, { params }) {
         const { userId, lodgeId } = await params;
         const user = await userDao.getById(userId);
         if(!user) return NextResponse.json({ message: "Usuario no econtrado.." }, { status: 400 });
+        // if(user.role === "admin" || user.role === "developer") return NextResponse.json({ message: "No puedes reservar una cabaña.." }, { status: 400 });
         const lodge = await lodgeDao.getById(lodgeId);
         if(!lodge) return NextResponse.json({ message: "Cabaña no econtrada.." }, { status: 404 });
         if(lodge.available === false) return NextResponse.json({ message: "Esa cabaña no esta disponible.." }, { status: 400 });

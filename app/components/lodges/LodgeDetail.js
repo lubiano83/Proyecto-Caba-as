@@ -60,7 +60,7 @@ export default function LodgeDetail({ id }) {
                         <div className="flex justify-center items-center gap-2">
                             <GoBack path={"/pages/lodges"} />
                             { user ? (
-                                <Link href={"/pages/reservations"}>
+                                <Link href={`/pages/reservations/${lodgeById._id}/${user._id}`}>
                                     <Boton>
                                         Reservar
                                     </Boton>
