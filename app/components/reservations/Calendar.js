@@ -27,11 +27,11 @@ export default function Calendar({ setArrive, setLeave, lodgeId, reservations })
     setLeave(endDate);
   }, [endDate]);
 
-  const reservedDates = reservations.filter(reservation => reservation.lodge._id === lodgeId).flatMap(reservation => getDatesInRange(reservation.arrive, reservation.leave));
+  const reservedDates = reservations?.filter(reservation => reservation?.lodge?._id === lodgeId).flatMap(reservation => getDatesInRange(reservation.arrive, reservation.leave));
 
   return (
-    <div className="w-full flex gap-4 mx-auto">
-      <div className="border-2 border-dark rounded-lg bg-white text-gray-700 px-2 py-1 w-full text-center">
+    <div className="w-full flex gap-4">
+      <div className="border-2 border-dark rounded-lg bg-white text-gray-700 px-2 py-1 w-full">
         <DatePicker
           selected={startDate}
           onChange={(date) => setStartDate(date)}
@@ -55,7 +55,7 @@ export default function Calendar({ setArrive, setLeave, lodgeId, reservations })
         />
       </div>
 
-      <div className="border-2 border-dark rounded-lg bg-white text-gray-700 px-2 py-1 w-full text-center">
+      <div className="border-2 border-dark rounded-lg bg-white text-gray-700 px-2 py-1 w-full">
         <DatePicker
           selected={endDate}
           onChange={(date) => setEndDate(date)}
